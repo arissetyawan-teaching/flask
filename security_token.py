@@ -1,3 +1,5 @@
+# curl -H "Authorization: Bearer secret-token-1" http://127.0.0.1:7001/
+
 from flask import Flask
 from flask_httpauth import HTTPTokenAuth
 
