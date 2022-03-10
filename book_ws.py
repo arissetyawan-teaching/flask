@@ -33,6 +33,7 @@ def add_header(response):
     response.headers['X-Api-Name'] = 'W/S book'
     return response
 
+#curl -i -X GET http://127.0.0.1:4000/books -H 'Content-Type: application/json'
 @app.route("/books", methods=["GET"])
 def index():
     books = Book.query.all()
@@ -43,15 +44,16 @@ def index():
         array_books.append(dict_books)
     return jsonify(array_books), 200, {'content-type':'application/json'}        
 
+#curl -i -X POST http://127.0.0.1:4000/books/create -H 'Content-Type: application/json' -d '{"title":"Buku Baru Lagi"}'
 @app.route("/books/create", methods=["POST"])
 def create():
     req = request.json
-    title = req['title']
-    book = Book(title=title)
+    book = Book(title=req['title'])
     db.session.add(book)
     db.session.commit()
-    return jsonify(book.toJson), 201, {'content-type':'application/json'}        
+    return jsonify(book.toJson()), 201, {'content-type':'application/json'}        
 
+#curl -i -X GET http://127.0.0.1:4000/books/Book-A -H 'Content-Type: application/json'
 @app.route("/books/<title>", methods=["GET"])
 def show(title):
     book = Book.query.filter_by(title=title).first()
@@ -59,7 +61,6 @@ def show(title):
         return {"msg": "Book cant be found"}, 404
     else:
         return jsonify(book.toJson()), 200, {'content-type':'application/json'}
-
 
 # curl -i -X POST http://127.0.0.1:4000/books/update    -H 'Content-Type: application/json'    -d '{"oldtitle":"Bu"}'
 # HTTP/1.0 400 BAD REQUEST
@@ -74,7 +75,6 @@ def show(title):
 #   "msg": "Error parsing request"
 # }
 # curl -X POST http://127.0.0.1:4000/books/update    -H 'Content-Type: application/json' -d '{"oldtitle": "Book-1", "newtitle": "Book-A"}'
-
 @app.route("/books/update", methods=["POST"])
 def update():
     try:
