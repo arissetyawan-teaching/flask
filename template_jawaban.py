@@ -26,6 +26,7 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False, primary_key=False)
     token = db.Column(db.String(225), unique=True, nullable=True, primary_key=False)
 
+# tulis command CURL utk request end point ini lengkap dengan data body jsonnya
 @app.route("/api/v1/login", methods=["POST"])
 def login():
   # request sesuai spec sbg data body bukan parameter lihat contoh book_ws.db
@@ -41,6 +42,7 @@ def verify_token(token):
   # cari ke dalam table user, 
   # return usernamenya
 
+# tulis command line CURL utk request end point ini lengkap dengan data body jsonnya
 @app.route("/api/v2/users/info", methods=["POST"])
 @auth.login_required
 def info()
