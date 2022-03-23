@@ -29,7 +29,6 @@ class Book(db.Model):
 
 @app.after_request
 def add_header(response):
-    response.headers['X-Expires-At'] = datetime.datetime.now() + datetime.timedelta(days=1, hours=3)
     response.headers['X-Api-Name'] = 'W/S book'
     return response
 
