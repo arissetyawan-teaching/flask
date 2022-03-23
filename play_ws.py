@@ -34,11 +34,17 @@ def square_with_parameters_not_in_url():
 #curl -i -X POST http://127.0.0.1:7007/api/v1/square_with_parameters_with_body_json -H 'Content-Type: application/json' -d '{"a":2, "b": 2}'
 #curl -i -X POST http://127.0.0.1:7007/api/v1/square_with_parameters_with_body_json -d '{"a":2, "b": 2}' #does this work = ???
 @app.route("/api/v1/square_with_parameters_with_body_json", methods=["POST"])
-def plus_with_parameters():
+def square_with_parameters_with_body_json():
   a = request.json['a']
   b = request.json['b']
   return jsonify({"result": (int(a) ** int(b))}), 200
 
+#curl -i -X POST http://127.0.0.1:7007/api/v1/square_with_parameters_in_header -H 'Content-Type: application/json' -H 'a: 2' -H 'b: 3'
+@app.route("/api/v1/square_with_parameters_in_header", methods=["POST"])
+def square_with_parameters_in_header():
+  a = request.headers['a']
+  b = request.headers['b']
+  return jsonify({"result": (int(a) ** int(b))}), 200
 
 if __name__ == '__main__':
    app.run(debug = True, port=7007)
