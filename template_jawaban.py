@@ -29,12 +29,12 @@ class User(db.Model):
 # tulis command CURL utk request end point ini lengkap dengan data body jsonnya
 @app.route("/api/v1/login", methods=["POST"])
 def login():
-  # request sesuai spec sbg data body bukan parameter lihat contoh book_ws.db
-  # pada def create line 50 dan parsingnya line 51
+  # request sesuai spec sbg data body bukan parameter lihat contoh book_ws.py
+  # pada def create line 49 dan parsingnya line 50
   # cari kedalam db user username dan password
   # jika ketemu maka update kolom token ybs dengen random string
   # response kan sbb
-  # body {"token": "randomsetringnyaaahh"}, http code: 200
+  # body {"token": "randomsetringnyaaahh"}, 200
  
 @auth.verify_token
 def verify_token(token):
@@ -49,4 +49,5 @@ def info()
   # response-kan {"username": auth.current_user()}, http code: 200
 
 
-
+if __name__ == '__main__':
+   app.run(debug = True, port=4000)
